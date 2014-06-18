@@ -41,6 +41,7 @@ feature 'user adds a new character', %Q{
     click_button 'Create Character'
 
     expect(page).to have_content("Invalid answer!  Please make sure you have entered a unique character name and that you have entered an actor.")
+    expect(page).to have_content("can't be blank")
 
     expect(Character.count).to eq(0)
 

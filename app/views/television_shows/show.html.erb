@@ -24,6 +24,8 @@
         <td><%= character.name %></td>
         <td><%= character.actor %></td>
         <td><%= character.description %></td>
+        <td><%= button_to "Delete Character", { action: "destroy", controller: :characters, id: character.id },
+                                method: :delete, data: { confirm: "Are you sure?" } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -31,6 +33,14 @@
 
 <h3>Add a character:</h3>
   <%= form_for [@television_show, @character] do |f| %>
+
+    <% if @character.errors.any? %>
+    <ul>
+      <% @character.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+    <% end %>
 
   <div>
     <%= f.label :name %>

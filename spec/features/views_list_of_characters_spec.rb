@@ -15,8 +15,8 @@ feature 'user views a list of characters', %Q{
     show2 = TelevisionShow.create!(title: 'Orphan Black', network: 'BBC America')
     characters = []
     character_attrs = [
-      { name: 'Arya Stark', actor: 'Maisie Williams', television_show_id: 1 },
-      { name: 'Alison Hendrix', actor: 'Tatiana Maslany', television_show_id: 2 }
+      { name: 'Arya Stark', actor: 'Maisie Williams', television_show_id: show1.id },
+      { name: 'Alison Hendrix', actor: 'Tatiana Maslany', television_show_id: show2.id }
     ]
 
     character_attrs.each do |attrs|
@@ -25,13 +25,14 @@ feature 'user views a list of characters', %Q{
 
 
     visit "/characters"
-    characters.each do |character|
-      expect(page).to have_content character.name
-      expect(page).to have_content television_show.network
-    end
+
+    expect(page).to have_content('Arya Stark')
+    expect(page).to have_content('Maisie Williams')
+    expect(page).to have_content('Game of Thrones')
+    expect(page).to have_content('Alison Hendrix')
+    expect(page).to have_content('Tatiana Maslany')
+    expect(page).to have_content('Orphan Black')
 
   end
-
-
 
 end
